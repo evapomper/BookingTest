@@ -5,7 +5,6 @@ import com.eduproject.ge.pojos.BookingDates;
 import com.eduproject.ge.utils.FileNameConstants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.JsonPath;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.module.jsv.JsonSchemaValidator;
@@ -16,7 +15,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.io.IOException;
 
-public class PostApiRequestUsingPojos {
+public class PostApiRequestUsingPojosTest {
 
     @Test
     public void postApiRequest() throws JsonProcessingException {
