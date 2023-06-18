@@ -4,6 +4,7 @@ import com.eduproject.ge.pojos.Booking;
 import com.eduproject.ge.pojos.BookingDates;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -28,6 +29,7 @@ public class PostApiRequestUsingPojos {
             System.out.println(bookingDetails.getFirstname());
             System.out.println(bookingDetails.getBookingdates().getCheckin());
 
+            Response response =
                     RestAssured
                             .given()
                                 .contentType(ContentType.JSON)
@@ -35,6 +37,20 @@ public class PostApiRequestUsingPojos {
                                 .body(requestBody)
                             .when()
                                 .post()
+                            .then()
+                                .assertThat()
+                                .statusCode(200)
+                            .extract()
+                                .response();
+
+                    int bookingId = response.path("bookingid");
+
+                    RestAssured
+                            .given()
+                                .contentType(ContentType.JSON)
+                                .baseUri("https://restful-booker.herokuapp.com/booking")
+                            .when()
+                                .get("/{bookingID}", bookingId)
                             .then()
                                 .assertThat()
                                 .statusCode(200);
