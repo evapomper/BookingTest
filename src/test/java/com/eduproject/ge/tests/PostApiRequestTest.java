@@ -1,16 +1,16 @@
 package com.eduproject.ge.tests;
 
+import com.eduproject.ge.utils.BaseTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import net.minidev.json.JSONObject;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-public class PostApiRequestTest {
+public class PostApiRequestTest extends BaseTest {
     @Test
     public void createBooking() {
-
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
         JSONObject booking = new JSONObject();
         JSONObject bookingDate = new JSONObject();
@@ -24,6 +24,7 @@ public class PostApiRequestTest {
         booking.put("bookingdates", bookingDate);
         booking.put("additionalneeds", "something else");
 
+        Response response =
         RestAssured
                 .given()
                     .contentType(ContentType.JSON)
@@ -40,6 +41,22 @@ public class PostApiRequestTest {
                     .body("booking.depositpaid", Matchers.equalTo(true))
                     .body("booking.bookingdates.checkin", Matchers.equalTo("2021-01-01"))
                     .body("booking.bookingdates.checkout", Matchers.equalTo("2022-01-01"))
-                    .body("booking.additionalneeds", Matchers.equalTo("something else"));
+                    .body("booking.additionalneeds", Matchers.equalTo("something else"))
+                .extract()
+                    .response();
+        int bookingId = response.path("bookingid");
+
+        RestAssured
+                .given()
+                    .contentType(ContentType.JSON)
+                    .pathParam("bookingID", bookingId)
+                    .baseUri("https://restful-booker.herokuapp.com/booking/")
+                .when()
+                    .get("{bookingID}")
+                .then()
+                    .assertThat()
+                    .statusCode(200)
+                .body("firstname", Matchers.equalTo("first project"))
+                .body("lastname", Matchers.equalTo("tutorial"));
     }
 }
