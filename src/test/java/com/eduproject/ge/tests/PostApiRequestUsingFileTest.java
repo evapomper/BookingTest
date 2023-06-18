@@ -8,7 +8,6 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import net.minidev.json.JSONArray;
 import org.apache.commons.io.FileUtils;
-import org.hamcrest.Matchers;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
