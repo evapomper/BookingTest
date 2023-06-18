@@ -17,7 +17,7 @@ import java.io.IOException;
 public class PutApiRequestTest {
 
     @Test
-    public void postApiRequestTest() throws IOException {
+    public void putApiRequestTest() throws IOException {
 
         String postApiRequestBody = FileUtils.readFileToString(new File(FileNameConstants.POST_API_REQUEST_BODY), "UTF-8");
         String tokenApiRequestBody = FileUtils.readFileToString(new File(FileNameConstants.GET_TOKEN_BODY), "UTF-8");
