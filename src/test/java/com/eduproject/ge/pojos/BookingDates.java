@@ -8,7 +8,6 @@ public class BookingDates {
     public BookingDates() {
 
     }
-
     public BookingDates(String cin, String cout) {
         setCheckin(cin);
         setCheckout(cout);

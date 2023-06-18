@@ -4,6 +4,9 @@ import com.eduproject.ge.pojos.Booking;
 import com.eduproject.ge.pojos.BookingDates;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 public class PostApiRequestUsingPojos {
@@ -12,8 +15,8 @@ public class PostApiRequestUsingPojos {
     public void postApiRequest() throws JsonProcessingException {
 
         try {
-            BookingDates bookingDates = new BookingDates("2022-01-01", "2023-01-01");
-            Booking booking = new Booking("pojos name", "pojos lname", "something", true, 800, bookingDates);
+            BookingDates bookingdates = new BookingDates("2022-01-01", "2023-01-01");
+            Booking booking = new Booking("pojos name", "pojos lname", "something", true, 800, bookingdates);
 
             //serialization
             ObjectMapper objectMapper = new ObjectMapper();
@@ -23,7 +26,18 @@ public class PostApiRequestUsingPojos {
             //de-serialization
             Booking bookingDetails = objectMapper.readValue(requestBody, Booking.class);
             System.out.println(bookingDetails.getFirstname());
-            System.out.println(bookingDetails.getBookingDates().getCheckin());
+            System.out.println(bookingDetails.getBookingdates().getCheckin());
+
+                    RestAssured
+                            .given()
+                                .contentType(ContentType.JSON)
+                                .baseUri("https://restful-booker.herokuapp.com/booking")
+                                .body(requestBody)
+                            .when()
+                                .post()
+                            .then()
+                                .assertThat()
+                                .statusCode(200);
 
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);

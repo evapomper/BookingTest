@@ -7,7 +7,6 @@ public class Booking {
     private String additionalneeds;
     private Boolean depositpaid;
     private int totalprice;
-    private BookingDates bookingDates;
 
     public Booking() {
 
@@ -21,8 +20,19 @@ public class Booking {
         setAdditionalneeds(aneeds);
         setDepositpaid(dpaid);
         setTotalprice(tprice);
-        setBookingDates(bdates);
+        setBookingdates(bdates);
     }
+
+    public BookingDates getBookingdates() {
+        return bookingdates;
+    }
+
+    public void setBookingdates(BookingDates bookingdates) {
+        this.bookingdates = bookingdates;
+    }
+
+    private BookingDates bookingdates;
+
 
     public String getFirstname() {
         return firstname;
@@ -64,12 +74,6 @@ public class Booking {
         this.totalprice = totalprice;
     }
 
-    public BookingDates getBookingDates() {
-        return bookingDates;
-    }
 
-    public void setBookingDates(BookingDates bookingDates) {
-        this.bookingDates = bookingDates;
-    }
 
 }
