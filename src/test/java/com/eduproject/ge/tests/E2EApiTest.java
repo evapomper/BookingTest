@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class E2EApiTest extends BaseTest {
 
-    @Test
+    @Test(description = "e2e")
     public void e2eApiRequestTest() throws IOException {
 
         String postApiRequestBody = FileUtils.readFileToString(new File(FileNameConstants.POST_API_REQUEST_BODY), "UTF-8");
